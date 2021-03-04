@@ -1,34 +1,32 @@
+Limpia
 %Load RAW data
 pre = ncread('/Users/alberto/Desktop/20201218_Data_3Headed/Analisis/Data/NAOS/3-Headed_NAOS_Data.nc','Presi');
 tem = ncread('/Users/alberto/Desktop/20201218_Data_3Headed/Analisis/Data/NAOS/3-Headed_NAOS_Data.nc','Tempi');
 sal = ncread('/Users/alberto/Desktop/20201218_Data_3Headed/Analisis/Data/NAOS/3-Headed_NAOS_Data.nc','Salti');
-% CTD24.pre = ncread('/Users/alberto/Desktop/20201218_Data_3Headed/Analisis/Data/NAOS/3-Headed_NAOS_Data.nc','Pre24');
-% CTD24.tem = ncread('/Users/alberto/Desktop/20201218_Data_3Headed/Analisis/Data/NAOS/3-Headed_NAOS_Data.nc','Tem24');
-% CTD24.sal = ncread('/Users/alberto/Desktop/20201218_Data_3Headed/Analisis/Data/NAOS/3-Headed_NAOS_Data.nc','Sal24');
-% CTD25.pre = ncread('/Users/alberto/Desktop/20201218_Data_3Headed/Analisis/Data/NAOS/3-Headed_NAOS_Data.nc','Pre25');
-% CTD25.tem = ncread('/Users/alberto/Desktop/20201218_Data_3Headed/Analisis/Data/NAOS/3-Headed_NAOS_Data.nc','Tem25');
-% CTD25.sal = ncread('/Users/alberto/Desktop/20201218_Data_3Headed/Analisis/Data/NAOS/3-Headed_NAOS_Data.nc','Sal25');
 sen = h5read('/Users/alberto/Desktop/20201218_Data_3Headed/Analisis/Data/NAOS/3-Headed_NAOS_Data.nc','/Sensors');
 prof = h5read('/Users/alberto/Desktop/20201218_Data_3Headed/Analisis/Data/NAOS/3-Headed_NAOS_Data.nc','/Profiles');
-
 figout='/Users/alberto/Desktop/20201218_Data_3Headed/Analisis/Plots/Basicos/versusCTD24/';
-%Read CTD Files st 25
-fid25 = importdata('/Users/alberto/Desktop/20201218_Data_3Headed/Analisis/Data/CTD/ra2012_25.cnv',' ',317);
-x=find(fid25.data(:,1)==max(fid25.data));
-CTD25.pres=fid25.data(1:x,1); %pres
-med=(fid25.data(:,2)+fid25.data(:,4))/2; %temp
-CTD25.tem=med(1:x,1);
-CTD25.sal=fid25.data(1:x,10); %sal
-clear fid24 fid25
+CTD25.tem = ncread('/Users/alberto/Desktop/20201218_Data_3Headed/Analisis/Data/NAOS/3-Headed_NAOS_Data.nc','Tem25');
+CTD25.sal = ncread('/Users/alberto/Desktop/20201218_Data_3Headed/Analisis/Data/NAOS/3-Headed_NAOS_Data.nc','Sal25');
+CTD25.pre = ncread('/Users/alberto/Desktop/20201218_Data_3Headed/Analisis/Data/NAOS/3-Headed_NAOS_Data.nc','Pre25');
+CTD24.tem = ncread('/Users/alberto/Desktop/20201218_Data_3Headed/Analisis/Data/NAOS/3-Headed_NAOS_Data.nc','Tem24');
+CTD24.sal = ncread('/Users/alberto/Desktop/20201218_Data_3Headed/Analisis/Data/NAOS/3-Headed_NAOS_Data.nc','Sal24');
+CTD24.pre = ncread('/Users/alberto/Desktop/20201218_Data_3Headed/Analisis/Data/NAOS/3-Headed_NAOS_Data.nc','Pre24');
 
-fid24 = importdata('/Users/alberto/Desktop/20201218_Data_3Headed/Analisis/Data/CTD/ra2012_24.cnv',' ',317);
-x=find(fid24.data(:,1)==max(fid24.data));
-CTD24.pres=fid24.data(1:x,1); %pres
-med=(fid24.data(:,2)+fid24.data(:,4))/2; %temp
-CTD24.tem=med(1:x,1);
-CTD24.sal=fid24.data(1:x,10); %sal
-clear fid24 fid25
-
+% %Read CTD Files st 25
+% fid25 = importdata('/Users/alberto/Desktop/20201218_Data_3Headed/Analisis/Data/CTD/Station25.csv');
+% CTD25.pre=fid25.data(:,1); %pres
+% CTD25.tem=fid25.data(:,3); %temp
+% CTD25.sal=fid25.data(:,2); %sal
+% clear fid25
+% 
+% %Read CTD Files st 24
+% fid24 = importdata('/Users/alberto/Desktop/20201218_Data_3Headed/Analisis/Data/CTD/Station24.csv');
+% CTD24.pre=fid24.data(:,1); %pres
+% CTD24.tem=fid24.data(:,3); %temp
+% CTD24.sal=fid24.data(:,2); %sal
+% clear fid24
+% 
 % Compute Potential Temperature for st 24 & 25
  SA24 = []; temp24 = []; SA25 = []; temp25 = []; SAi = [];
 for ii = 1:size(CTD24.pre,1); %For CTD24
